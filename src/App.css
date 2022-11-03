@@ -1,10 +1,37 @@
 .App {
   text-align: center;
+  border: 2px solid gray ;
+  width: 200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+.button {
+  background-color: darkgoldenrod;
+  border: 0;
+  cursor: pointer;
+  margin: 10px;
+  padding: 5px 20px;
+  transition: opacity 0.3s linear;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: auto;
+}
+
+.count {
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.count-red {
+  color: red;
 }
 
 @media (prefers-reduced-motion: no-preference) {
