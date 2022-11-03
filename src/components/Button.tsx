@@ -8,10 +8,8 @@ type ButtonType = {
 }
 
 const Button:React.FC<ButtonType> = ({name, className, callback, isDisabled}) => {
-    const onClickHandler = () => {
-        callback();
-    }
-    return <button className={className} onClick={onClickHandler} disabled={isDisabled}>{name}</button>
+
+    return <button className={className} onClick={callback} disabled={isDisabled}>{name}</button>
 };
 
 export default Button;
