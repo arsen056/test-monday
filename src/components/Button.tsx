@@ -8,7 +8,6 @@ type ButtonType = {
 }
 
 const Button:React.FC<ButtonType> = ({name, className, callback, isDisabled}) => {
-
     return <button className={className} onClick={callback} disabled={isDisabled}>{name}</button>
 };
 

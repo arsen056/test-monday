@@ -1,0 +1,59 @@
+.counter {
+    width: 300px;
+    background-color: #C8C8C8;
+    padding: 20px;
+    margin: 10px auto;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px -1px rgba(0,0,0,0.75);
+}
+
+.count {
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.countRed {
+    color: red;
+}
+
+.input  {
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 20px;
+    width: 20%;
+    height: 15px;
+    border: 2px solid #ff8c00;
+    font-size: 20px;
+    outline: 0;
+    border-radius: 5px;
+}
+.input:focus {
+    border-color: cornflowerblue;
+}
+
+label {
+    display: block;
+    text-align: center;
+}
+
+.span {
+    margin-right: 10px;
+    font-size: 25px;
+}
+
+.error {
+    color: red;
+}
+
+.errorInput {
+    background-color: #C8667D;
+    border-color: red;
+}
+
+.errorInput:focus {
+    border-color: red;
+}
+
+.message {
+    color: green;
+}

@@ -1,7 +1,6 @@
 .App {
   text-align: center;
-  border: 2px solid gray ;
-  width: 200px;
+
   margin: 0 auto;
   padding: 20px;
 }
@@ -12,27 +11,28 @@
 }
 
 .button {
+  position: relative;
   background-color: darkgoldenrod;
+  font-size: 18px;
   border: 0;
   cursor: pointer;
   margin: 10px;
   padding: 5px 20px;
   transition: opacity 0.3s linear;
+  border-radius: 5px;
+}
+
+.button:active {
+  top: 2px;
 }
 
 .button:disabled {
   opacity: 0.5;
   cursor: auto;
+  top: 0;
 }
 
-.count {
-  font-weight: 600;
-  font-size: 20px;
-}
 
-.count-red {
-  color: red;
-}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
