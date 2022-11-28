@@ -43,7 +43,8 @@ const CounterSettings: React.FC<CounterSettingsType> = ({
         const inputValue = e.currentTarget.value;
         setMaxValue(+inputValue)
         setMessage('Enter values and press set')
-        if (+inputValue <= +minValue) {
+        console.log(minValue)
+        if (+inputValue <= +minValue || +minValue < 0) {
           setError('Incorrect value');
         } else {
           setError('');
