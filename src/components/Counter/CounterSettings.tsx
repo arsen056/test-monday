@@ -1,70 +1,89 @@
 import React, {ChangeEvent, useState} from 'react';
 import Button from "../Button";
 import s from "./Counter.module.css"
+import {useDispatch, useSelector} from "react-redux";
+import {AppStateType} from "../../redux/store";
+import {setSettingsAC} from "../../redux/counterReducer";
+import {setMaxValueAC, setMinValueAC, SettingsStateType} from "../../redux/settingsReducer";
+import {setErrorAC, setMessageAC} from "../../redux/CounterModeReducer";
 
+const CounterSettings = () => {
 
-type CounterSettingsType = {
-    setSettings: (min: number, max: number) => void
-    minValue: number
-    maxValue: number
-    setMinValue:(number:number) => void
-    setMaxValue:(number:number) => void
-    error: string
-    setError: (error:string) => void
-    setMessage: (message: string) => void
-}
+    const {min, max} = useSelector<AppStateType, SettingsStateType>(state => state.settings)
+    const isError = useSelector<AppStateType, boolean>(state => state.counterMode.isError)
 
-const CounterSettings: React.FC<CounterSettingsType> = ({
-                                                            setSettings,
-                                                            minValue,
-                                                            maxValue, error,
-                                                            setError, setMessage,
-                                                            setMinValue,
-                                                            setMaxValue
-}) => {
+    const dispatch = useDispatch();
 
     const setHandler = () => {
-        setSettings(+minValue, +maxValue)
-        setMessage('');
+        dispatch(setSettingsAC(min, max, min))
+        dispatch(setMessageAC(false))
     };
 
     const inputMinHandler = (e:ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.currentTarget.value;
-        setMinValue(+inputValue)
-        setMessage('Enter values and press set')
-        if (+inputValue < 0 || +inputValue >= +maxValue) {
-          setError('Incorrect value');
+        dispatch(setMinValueAC(+inputValue))
+        dispatch(setMessageAC(true))
+        if (+inputValue < 0 || +inputValue >= +max) {
+            dispatch(setErrorAC(true))
         } else {
-            setError('');
+            dispatch(setErrorAC(false))
         }
     }
 
     const inputMaxHandler = (e:ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.currentTarget.value;
-        setMaxValue(+inputValue)
-        setMessage('Enter values and press set')
-        console.log(minValue)
-        if (+inputValue <= +minValue || +minValue < 0) {
-          setError('Incorrect value');
+        dispatch(setMaxValueAC(+inputValue))
+        dispatch(setMessageAC(true))
+
+        if (+inputValue <= min || max < 0) {
+            dispatch(setErrorAC(true))
         } else {
-          setError('');
+            dispatch(setErrorAC(false))
         }
     }
 
-    const errorClassName = error ? s.errorInput : '';
+    // Дописать 2 функции **
+    // const checkError = (inputValue: number) => {
+    //     if (inputValue < 0 || inputValue > max) {
+    //         dispatch(setErrorAC(true))
+    //     } else {
+    //         dispatch(setErrorAC(false))
+    //     }
+    // }
+    // const changeInput = (e:ChangeEvent<HTMLInputElement>) => {
+    //     const inputValue = e.currentTarget.value;
+    //     const nameInput = e.currentTarget.name;
+    //     setMessage('Enter values and press set');
+    //
+    //     switch (nameInput) {
+    //         case 'max': {
+    //             setMaxValue(+inputValue);
+    //             checkError(+inputValue)
+    //             break;
+    //         }
+    //         case 'min': {
+    //             setMinValue(+inputValue);
+    //             checkError(+inputValue)
+    //             break;
+    //         }
+    //     }
+    // }
+    // ***
+
+    const errorClassName = isError ? s.errorInput : '';
 
     return (
         <div className={s.counter}>
             <label htmlFor="">
                 <span className={s.span}>Min value</span>
-                <input className={s.input + ' ' + errorClassName} type="number" value={minValue} onChange={inputMinHandler} placeholder='min value'/>
+                <input className={s.input + ' ' + errorClassName} name='min' type="number" value={min} onChange={inputMinHandler} placeholder='min value'/>
             </label>
 
             <label htmlFor="">
                 <span className={s.span}>Max value</span>
-                <input className={s.input + ' ' + errorClassName} type="number" value={maxValue} onChange={inputMaxHandler} placeholder='max value'/>
+                <input className={s.input + ' ' + errorClassName} name='max' type="number" value={max} onChange={inputMaxHandler} placeholder='max value'/>
             </label>
-            <Button className='button' name='Set' callback={setHandler} isDisabled={error ? true : false}/>
+            <Button className='button' name='Set' callback={setHandler} isDisabled={isError}/>
         </div>
     );
 };
