@@ -35,40 +35,12 @@ const CounterSettings = () => {
         dispatch(setMaxValueAC(+inputValue))
         dispatch(setMessageAC(true))
 
-        if (+inputValue <= min || max < 0) {
+        if (+inputValue <= min || max < 0 || (min < 0 && min < +inputValue)) {
             dispatch(setErrorAC(true))
         } else {
             dispatch(setErrorAC(false))
         }
     }
-
-    // Дописать 2 функции **
-    // const checkError = (inputValue: number) => {
-    //     if (inputValue < 0 || inputValue > max) {
-    //         dispatch(setErrorAC(true))
-    //     } else {
-    //         dispatch(setErrorAC(false))
-    //     }
-    // }
-    // const changeInput = (e:ChangeEvent<HTMLInputElement>) => {
-    //     const inputValue = e.currentTarget.value;
-    //     const nameInput = e.currentTarget.name;
-    //     setMessage('Enter values and press set');
-    //
-    //     switch (nameInput) {
-    //         case 'max': {
-    //             setMaxValue(+inputValue);
-    //             checkError(+inputValue)
-    //             break;
-    //         }
-    //         case 'min': {
-    //             setMinValue(+inputValue);
-    //             checkError(+inputValue)
-    //             break;
-    //         }
-    //     }
-    // }
-    // ***
 
     const errorClassName = isError ? s.errorInput : '';
 
